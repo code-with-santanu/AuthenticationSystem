@@ -33,7 +33,8 @@ public class UserServiceImpl implements UserService{
                         userEntity.getId(),
                         userEntity.getFirstName(),
                         userEntity.getLastName(),
-                        userEntity.getEmail()
+                        userEntity.getEmail(),
+                        userEntity.getPassword()
                 )).collect(Collectors.toList());
 
         return userList;
