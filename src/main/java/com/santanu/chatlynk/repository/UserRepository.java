@@ -1,9 +1,12 @@
-package com.santanu.gossipZ.repository;
+package com.santanu.chatlynk.repository;
 
-import com.santanu.gossipZ.entity.UserEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.santanu.chatlynk.entity.User;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity,Long> {
+public interface UserRepository extends CrudRepository<User,Integer> {
+    Optional<User> findByUsername(String email);
 }
