@@ -1,4 +1,4 @@
-package com.santanu.gossipZ;
+package com.santanu.chatlynk;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

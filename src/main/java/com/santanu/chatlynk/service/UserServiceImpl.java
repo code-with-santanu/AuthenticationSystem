@@ -5,6 +5,7 @@ import com.santanu.gossipZ.model.User;
 import com.santanu.gossipZ.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,10 +16,12 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService{
 
    private UserRepository userRepository;
+   private PasswordEncoder passwordEncoder;
 
    @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -57,6 +60,9 @@ public class UserServiceImpl implements UserService{
 
         // create a user-entity object
         UserEntity userEntity = new UserEntity();
+
+        // encoding the password using bcrypt
+        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
 
         // copy the User properties to the user-entity
         BeanUtils.copyProperties(newUser,userEntity);
