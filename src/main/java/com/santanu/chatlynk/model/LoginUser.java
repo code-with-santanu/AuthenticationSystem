@@ -1,0 +1,18 @@
+package com.santanu.chatlynk.model;
+
+import lombok.Data;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Data
+public class LoginUser {
+
+    @NonNull
+    private String email;
+
+    @NonNull
+    private String password;
+}
