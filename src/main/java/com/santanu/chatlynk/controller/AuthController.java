@@ -2,6 +2,8 @@ package com.santanu.chatlynk.controller;
 
 import com.santanu.chatlynk.entity.User;
 import com.santanu.chatlynk.model.AuthenticationResponse;
+import com.santanu.chatlynk.model.LoginUser;
+import com.santanu.chatlynk.model.RegisterUser;
 import com.santanu.chatlynk.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +21,12 @@ public class AuthController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody User request){
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterUser request){
         return ResponseEntity.ok(authenticationService.register(request));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> login(@RequestBody User request){
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginUser request){
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 }
