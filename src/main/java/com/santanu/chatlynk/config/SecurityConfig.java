@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -41,6 +42,12 @@ public class SecurityConfig {
     // Login success handler object
     private final LoginSuccessHandler loginSuccessHandler;
 
+    // Logout Handler object
+    private final CustomLogouthandler customLogouthandler;
+
+    // Custom authentication exception handler
+    private  final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
 
     @Value("${CLIENT_URL}")
     private String client_url;
@@ -60,6 +67,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 
         http
+                .exceptionHandling(ex->ex.authenticationEntryPoint(jwtAuthenticationEntryPoint)) //if any exception occurs call this
                 .csrf(csrf->csrf.disable())
                 .cors(cors-> cors.configurationSource(corsConfigurationSource())) // handling cors policy
                 .authorizeHttpRequests(req->req
@@ -70,10 +78,18 @@ public class SecurityConfig {
                         .loginPage(client_url+"/auth") // custom login form for security
                         .successHandler(loginSuccessHandler) // Redirect to this url on successful authentication using jwt auth
                 )
+                // logout functionality
+                .logout(l->l
+                        .logoutUrl("/logout")
+                        .addLogoutHandler(customLogouthandler)
+                        .logoutSuccessHandler(
+                                (request, response, authentication) -> SecurityContextHolder.clearContext()
+                        )
+                )
                 .userDetailsService(userDetailsServiceImpl) // adding custom userDetailsService to filter-chain
                 .sessionManagement(session->session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // making the app stateless i.e, no session & cookies is created by spring
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // Add the jwt filter before any security filter
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // making the app stateless i.e, no session & cookies is stored by spring
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // Add the jwt filter before any security filter to authenticate every request
 
 
         return  http.build();
