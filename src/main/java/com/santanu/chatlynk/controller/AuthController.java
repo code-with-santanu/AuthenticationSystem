@@ -1,16 +1,18 @@
 package com.santanu.chatlynk.controller;
 
-import com.santanu.chatlynk.entity.User;
 import com.santanu.chatlynk.model.AuthenticationResponse;
-import com.santanu.chatlynk.model.LoginUser;
+import com.santanu.chatlynk.model.AuthenticationRequest;
+import com.santanu.chatlynk.model.RegisterResponse;
 import com.santanu.chatlynk.model.RegisterUser;
 import com.santanu.chatlynk.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
+import java.util.Map;
 
 
 @RequiredArgsConstructor
@@ -21,12 +23,12 @@ public class AuthController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterUser request){
+    public ResponseEntity<RegisterResponse> register(@RequestBody RegisterUser request){
         return ResponseEntity.ok(authenticationService.register(request));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginUser request){
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest request){
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 }
