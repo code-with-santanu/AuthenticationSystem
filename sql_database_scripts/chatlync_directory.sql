@@ -5,7 +5,7 @@ USE `chatlync_directory`;
 -- Table structure for table `users`
 --
 
-
+DROP TABLE IF EXISTS `token`;
 DROP TABLE IF EXISTS `users`;
 
 
@@ -24,8 +24,6 @@ CREATE TABLE `users` (
 -- Table structure for table `token`
 --
 
-
-DROP TABLE IF EXISTS `token`;
 
 
 create table `token` (
