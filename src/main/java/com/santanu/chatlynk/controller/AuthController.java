@@ -24,7 +24,13 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<RegisterResponse> register(@RequestBody RegisterUser request){
-        return ResponseEntity.ok(authenticationService.register(request));
+        // Get the response
+        RegisterResponse response = authenticationService.register(request);
+
+        // if user exists send status code 400 else status code 200
+        if(response.getStatusCode()==400)
+            return ResponseEntity.status(400).body(response);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/login")
