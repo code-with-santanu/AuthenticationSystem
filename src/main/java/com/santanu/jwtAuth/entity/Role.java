@@ -1,4 +1,4 @@
-package com.santanu.auth.entity;
+package com.santanu.jwtAuth.entity;
 
 public enum Role {
     ADMIN,

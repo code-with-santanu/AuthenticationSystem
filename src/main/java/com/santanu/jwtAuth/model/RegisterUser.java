@@ -1,6 +1,6 @@
-package com.santanu.auth.model;
+package com.santanu.jwtAuth.model;
 
-import com.santanu.auth.entity.Role;
+import com.santanu.jwtAuth.entity.Role;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NonNull;

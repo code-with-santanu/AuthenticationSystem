@@ -1,6 +1,6 @@
-package com.santanu.auth.repository;
+package com.santanu.jwtAuth.repository;
 
-import com.santanu.auth.entity.User;
+import com.santanu.jwtAuth.entity.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

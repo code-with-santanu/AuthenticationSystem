@@ -1,4 +1,4 @@
-package com.santanu.auth.model;
+package com.santanu.jwtAuth.model;
 
 import lombok.Data;
 import lombok.Getter;

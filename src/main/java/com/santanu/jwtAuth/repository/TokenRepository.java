@@ -1,6 +1,6 @@
-package com.santanu.auth.repository;
+package com.santanu.jwtAuth.repository;
 
-import com.santanu.auth.entity.Token;
+import com.santanu.jwtAuth.entity.Token;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

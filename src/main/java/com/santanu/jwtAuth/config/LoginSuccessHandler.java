@@ -1,4 +1,4 @@
-package com.santanu.auth.config;
+package com.santanu.jwtAuth.config;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

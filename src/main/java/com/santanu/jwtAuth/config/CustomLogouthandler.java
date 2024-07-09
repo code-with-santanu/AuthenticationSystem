@@ -1,7 +1,7 @@
-package com.santanu.auth.config;
+package com.santanu.jwtAuth.config;
 
-import com.santanu.auth.entity.Token;
-import com.santanu.auth.repository.TokenRepository;
+import com.santanu.jwtAuth.entity.Token;
+import com.santanu.jwtAuth.repository.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

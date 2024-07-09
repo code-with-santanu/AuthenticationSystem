@@ -1,9 +1,9 @@
-package com.santanu.auth.config;
+package com.santanu.jwtAuth.config;
 
 
-import com.santanu.auth.entity.Role;
-import com.santanu.auth.filter.JwtAuthenticationFilter;
-import com.santanu.auth.service.UserDetailsServiceImpl;
+import com.santanu.jwtAuth.entity.Role;
+import com.santanu.jwtAuth.filter.JwtAuthenticationFilter;
+import com.santanu.jwtAuth.service.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
