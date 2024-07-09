@@ -1,13 +1,14 @@
-package com.santanu.auth.service;
+package com.santanu.jwtAuth.service;
 
-import com.santanu.auth.entity.Token;
-import com.santanu.auth.entity.User;
-import com.santanu.auth.model.AuthenticationResponse;
-import com.santanu.auth.model.AuthenticationRequest;
-import com.santanu.auth.model.RegisterResponse;
-import com.santanu.auth.model.RegisterUser;
-import com.santanu.auth.repository.TokenRepository;
-import com.santanu.auth.repository.UserRepository;
+import com.santanu.jwtAuth.entity.Token;
+import com.santanu.jwtAuth.entity.User;
+import com.santanu.jwtAuth.model.AuthenticationResponse;
+import com.santanu.jwtAuth.model.AuthenticationRequest;
+import com.santanu.jwtAuth.model.RegisterResponse;
+import com.santanu.jwtAuth.model.RegisterUser;
+import com.santanu.jwtAuth.repository.TokenRepository;
+import com.santanu.jwtAuth.repository.UserRepository;
+import com.santanu.jwtAuth.utils.JwtUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,7 +27,7 @@ public class AuthenticationService {
 
     private final PasswordEncoder passwordEncoder;
 
-    private final JwtService jwtService;
+    private final JwtUtils jwtUtils;
 
     private final AuthenticationManager authenticationManager;
 
@@ -63,7 +64,7 @@ public class AuthenticationService {
 
         User user = userRepository.findByUsername(request.getEmail()).orElseThrow();
         // handle here which token to be generated(accessToken or refreshToken)
-        String token = jwtService.generateAccessToken(user);
+        String token = jwtUtils.generateAccessToken(user);
 
         /* Using Session based mechanism here,
             Only one session will be logged in at once for a user */

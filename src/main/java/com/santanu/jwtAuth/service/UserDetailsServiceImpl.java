@@ -1,7 +1,7 @@
-package com.santanu.auth.service;
+package com.santanu.jwtAuth.service;
 
 
-import com.santanu.auth.repository.UserRepository;
+import com.santanu.jwtAuth.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
