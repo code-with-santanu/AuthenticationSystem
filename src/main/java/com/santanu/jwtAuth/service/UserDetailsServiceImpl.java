@@ -1,7 +1,7 @@
-package com.santanu.chatlynk.service;
+package com.santanu.auth.service;
 
 
-import com.santanu.chatlynk.repository.UserRepository;
+import com.santanu.auth.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

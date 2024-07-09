@@ -1,4 +1,4 @@
-package com.santanu.chatlynk.entity;
+package com.santanu.auth.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

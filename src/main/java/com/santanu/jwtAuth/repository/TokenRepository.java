@@ -1,6 +1,6 @@
-package com.santanu.chatlynk.repository;
+package com.santanu.auth.repository;
 
-import com.santanu.chatlynk.entity.Token;
+import com.santanu.auth.entity.Token;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

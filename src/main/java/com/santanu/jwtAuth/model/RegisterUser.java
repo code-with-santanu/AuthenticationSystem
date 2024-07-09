@@ -1,12 +1,10 @@
-package com.santanu.chatlynk.model;
+package com.santanu.auth.model;
 
-import com.santanu.chatlynk.entity.Role;
-import jakarta.persistence.Column;
+import com.santanu.auth.entity.Role;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import org.springframework.stereotype.Service;
 
 @Setter
 @Getter

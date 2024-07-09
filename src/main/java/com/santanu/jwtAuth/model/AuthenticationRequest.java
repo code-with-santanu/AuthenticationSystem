@@ -1,4 +1,4 @@
-package com.santanu.chatlynk.model;
+package com.santanu.auth.model;
 
 import lombok.Data;
 import lombok.Getter;

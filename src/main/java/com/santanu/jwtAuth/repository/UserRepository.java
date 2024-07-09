@@ -1,6 +1,6 @@
-package com.santanu.chatlynk.repository;
+package com.santanu.auth.repository;
 
-import com.santanu.chatlynk.entity.User;
+import com.santanu.auth.entity.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

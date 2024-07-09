@@ -1,7 +1,7 @@
-package com.santanu.chatlynk.config;
+package com.santanu.auth.config;
 
-import com.santanu.chatlynk.entity.Token;
-import com.santanu.chatlynk.repository.TokenRepository;
+import com.santanu.auth.entity.Token;
+import com.santanu.auth.repository.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

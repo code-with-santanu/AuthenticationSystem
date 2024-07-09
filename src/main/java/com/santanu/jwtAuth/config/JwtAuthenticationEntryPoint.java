@@ -1,4 +1,4 @@
-package com.santanu.chatlynk.config;
+package com.santanu.auth.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;

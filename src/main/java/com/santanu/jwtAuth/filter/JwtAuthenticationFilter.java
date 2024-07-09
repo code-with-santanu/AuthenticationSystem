@@ -1,7 +1,7 @@
-package com.santanu.chatlynk.filter;
+package com.santanu.auth.filter;
 
-import com.santanu.chatlynk.service.JwtService;
-import com.santanu.chatlynk.service.UserDetailsServiceImpl;
+import com.santanu.auth.service.JwtService;
+import com.santanu.auth.service.UserDetailsServiceImpl;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

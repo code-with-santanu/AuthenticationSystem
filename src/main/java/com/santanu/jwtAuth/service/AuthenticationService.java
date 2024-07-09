@@ -1,13 +1,13 @@
-package com.santanu.chatlynk.service;
+package com.santanu.auth.service;
 
-import com.santanu.chatlynk.entity.Token;
-import com.santanu.chatlynk.entity.User;
-import com.santanu.chatlynk.model.AuthenticationResponse;
-import com.santanu.chatlynk.model.AuthenticationRequest;
-import com.santanu.chatlynk.model.RegisterResponse;
-import com.santanu.chatlynk.model.RegisterUser;
-import com.santanu.chatlynk.repository.TokenRepository;
-import com.santanu.chatlynk.repository.UserRepository;
+import com.santanu.auth.entity.Token;
+import com.santanu.auth.entity.User;
+import com.santanu.auth.model.AuthenticationResponse;
+import com.santanu.auth.model.AuthenticationRequest;
+import com.santanu.auth.model.RegisterResponse;
+import com.santanu.auth.model.RegisterUser;
+import com.santanu.auth.repository.TokenRepository;
+import com.santanu.auth.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Service

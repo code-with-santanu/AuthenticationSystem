@@ -1,14 +1,12 @@
-package com.santanu.chatlynk.model;
+package com.santanu.auth.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class AuthenticationResponse {
+public class RegisterResponse {
+    private int statusCode;
 
-    private String token;
     private String message;
-
-
 }

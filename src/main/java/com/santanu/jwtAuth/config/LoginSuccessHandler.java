@@ -1,4 +1,4 @@
-package com.santanu.chatlynk.config;
+package com.santanu.auth.config;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

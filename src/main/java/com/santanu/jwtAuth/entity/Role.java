@@ -1,4 +1,4 @@
-package com.santanu.chatlynk.entity;
+package com.santanu.auth.entity;
 
 public enum Role {
     ADMIN,
