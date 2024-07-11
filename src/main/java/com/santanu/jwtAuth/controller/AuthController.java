@@ -1,10 +1,11 @@
-package com.santanu.auth.controller;
+package com.santanu.jwtAuth.controller;
 
-import com.santanu.auth.model.AuthenticationResponse;
-import com.santanu.auth.model.AuthenticationRequest;
-import com.santanu.auth.model.RegisterResponse;
-import com.santanu.auth.model.RegisterUser;
-import com.santanu.auth.service.AuthenticationService;
+import com.santanu.jwtAuth.model.AuthenticationResponse;
+import com.santanu.jwtAuth.model.AuthenticationRequest;
+import com.santanu.jwtAuth.model.RegisterResponse;
+import com.santanu.jwtAuth.model.RegisterUser;
+import com.santanu.jwtAuth.service.AuthenticationService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class AuthController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/register")
-    public ResponseEntity<RegisterResponse> register(@RequestBody RegisterUser request){
+    public ResponseEntity<RegisterResponse> register(@Valid @RequestBody RegisterUser request){
         // Get the response
         RegisterResponse response = authenticationService.register(request);
 
@@ -29,7 +30,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest request){
+    public ResponseEntity<AuthenticationResponse> login(@Valid @RequestBody AuthenticationRequest request){
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 }
