@@ -1,14 +1,17 @@
-package com.santanu.auth.filter;
+package com.santanu.jwtAuth.filter;
 
-import com.santanu.auth.service.JwtService;
-import com.santanu.auth.service.UserDetailsServiceImpl;
+import com.santanu.jwtAuth.service.UserDetailsServiceImpl;
+import com.santanu.jwtAuth.utils.JwtUtils;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,54 +26,74 @@ import java.io.IOException;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private  final JwtService jwtService;
+    private  final JwtUtils jwtUtils;
 
     private final UserDetailsServiceImpl userDetailService;
+
+    private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
         try {
-            String authHeader = request.getHeader("Authorization");
 
-            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-                filterChain.doFilter(request, response);
-                return;
-            }
+            String token = jwtUtils.getJwtTokenFromHeader(request); // step1: Retrieve the jwt token
 
-            // JWT Token is in the form "Bearer token". Remove Bearer word and get  only the Token
-            String token = authHeader.substring(7);
+            if(token != null) {
+                String username = jwtUtils.extractUsernameFromToken(token); // step2: extract the username
+                logger.debug("Username received {}", username);
 
-            String username = jwtService.extractUsername(token); // extract the username
+                /* step 3: Check if there is no existing authentication in the security context
+                   i.e, this username is not yet authenticated to make a request */
+                if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDetails userDetails = userDetailService.loadUserByUsername(username);
+                    // step 3.1: load the userDetails object
+                    UserDetails userDetails = userDetailService.loadUserByUsername(username);
 
-                if (jwtService.isTokenValid(token, userDetails)) {
-                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                            userDetails, null, userDetails.getAuthorities()
-                    );
+                    // step 3.2: if token is valid, generate UsernamePasswordAuthenticationToken using userDetails and the authorities
+                    if (jwtUtils.isTokenValid(token, userDetails)) {
+                        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                                userDetails, null, userDetails.getAuthorities()
+                        );
 
-                    authToken.setDetails(
-                            new WebAuthenticationDetailsSource().buildDetails(request)
-                    );
-                /* After setting the Authentication in the context, we specify that the current user is authenticated.
-                   So it passes the Spring Security Configurations successfully. */
-                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                        // step 3.2.1: Adding request-specific details to the authentication token
+                        authToken.setDetails(
+                                new WebAuthenticationDetailsSource().buildDetails(request)
+                        );
+                        /* step 3.2.2: After setting the Authentication in the context, we specify that the current user is authenticated.
+                           So it passes the Spring Security Configurations successfully. */
+                        SecurityContextHolder.getContext().setAuthentication(authToken);
+                    } else {
+                        logger.debug("Couldn't set authentication to Security Context...");
+                    }
+
+                } else if (SecurityContextHolder.getContext().getAuthentication() != null){
+                    logger.debug("User is already authenticated...");
                 } else {
-                    System.out.println("Cannot set the Security Context");
+                    logger.debug("UserName is received...");
                 }
-
+            } else {
+                logger.debug("Token is not received...");
             }
             
-        } catch (ExpiredJwtException ex) {
+        }
+        // Set the exceptions to the request to handle by AuthenticationEntryPoint
+        catch (ExpiredJwtException ex) {
+            // Set the exception
             request.setAttribute("exception", ex);
-            throw ex;
+
+            // Log the exception
+            logger.error("ExpiredJwtException exception: {}",ex.getMessage());
+
         } catch (BadCredentialsException ex) {
+            // Set the exception
             request.setAttribute("exception", ex);
-            throw ex;
+
+            // Log the exception
+            logger.error("BadCredentialsException exception: {}",ex.getMessage());
         }
 
+        // Now continue the filter-chain
         filterChain.doFilter(request, response);
     }
 }
