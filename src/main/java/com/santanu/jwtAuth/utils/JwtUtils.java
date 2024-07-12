@@ -44,12 +44,14 @@ public class JwtUtils {
         String bearerToken = request.getHeader("Authorization");
         logger.debug("Authorization Header: {}",bearerToken);
 
+        String token=null;
         // JWT Token is in the form "Bearer token". Remove Bearer word and get  only the Token
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            String token = bearerToken.substring(7);
+            token = bearerToken.substring(7);
         }
 
-        return null;
+        logger.debug("Jwt Token Received: {}",token);
+        return token;
     }
 
     // Token generation using username
