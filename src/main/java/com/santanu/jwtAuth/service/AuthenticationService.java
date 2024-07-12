@@ -57,12 +57,12 @@ public class AuthenticationService {
     public AuthenticationResponse authenticate(AuthenticationRequest request){
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
+                        request.getUsername(),
                         request.getPassword()
                 )
         );
 
-        User user = userRepository.findByUsername(request.getEmail()).orElseThrow();
+        User user = userRepository.findByUsername(request.getUsername()).orElseThrow();
         // handle here which token to be generated(accessToken or refreshToken)
         String token = jwtUtils.generateAccessToken(user);
 
