@@ -1,5 +1,6 @@
 package com.santanu.jwtAuth.utils;
 
+import com.santanu.jwtAuth.entity.Role;
 import com.santanu.jwtAuth.entity.User;
 import com.santanu.jwtAuth.repository.TokenRepository;
 import io.jsonwebtoken.Claims;
@@ -16,7 +17,10 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -56,8 +60,11 @@ public class JwtUtils {
 
     // Token generation using username
     public String generateTokenFromUsername(User user, long expirationTime) {
+//        Map<String, Object> claims = new HashMap<>();
+//        claims.put("roles", user.getRole().name());
         String token = Jwts
                 .builder()
+//                .setClaims(claims)  // TO set the other claims (roles) to the jwt-token
                 .setSubject(user.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTime))

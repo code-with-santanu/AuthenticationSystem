@@ -67,12 +67,12 @@ public class SecurityConfig {
                 .cors(cors-> cors.configurationSource(corsConfigurationSource())) // handling cors policy
                 .authorizeHttpRequests(req->req
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/adminOnly").hasAuthority(Role.ADMIN.name())
+                        .requestMatchers("*/adminOnly").hasAuthority("ADMIN")
                         .anyRequest().authenticated())
-                .formLogin(formLogin -> formLogin
-                        .loginPage(client_url+"/auth") // custom login form for security
-                        .successHandler(loginSuccessHandler) // Redirect to this url on successful authentication using jwt auth
-                )
+//                .formLogin(formLogin -> formLogin
+//                        .loginPage(client_url+"/auth") // custom login form for security
+//                        .successHandler(loginSuccessHandler) // Redirect to this url on successful authentication using jwt auth
+//                )
                 // logout functionality
                 .logout(l->l
                         .logoutUrl("/logout")
