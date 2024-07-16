@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.santanu</groupId>
-	<artifactId>chatlynk</artifactId>
+	<artifactId>jwtAuth</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>gossipZ</name>
 	<description>Backend service for chatting application</description>

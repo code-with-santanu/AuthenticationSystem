@@ -1,9 +1,6 @@
 package com.santanu.jwtAuth.controller;
 
-import com.santanu.jwtAuth.model.AuthenticationResponse;
-import com.santanu.jwtAuth.model.AuthenticationRequest;
-import com.santanu.jwtAuth.model.RegisterResponse;
-import com.santanu.jwtAuth.model.RegisterUser;
+import com.santanu.jwtAuth.model.*;
 import com.santanu.jwtAuth.service.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
