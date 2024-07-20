@@ -10,18 +10,16 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.AccessDeniedException;
-import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
 @Service
-public class AuthenticationService {
+public class AuthenticationServiceImpl implements AuthenticationService{
     private  final UserRepository userRepository;
 
     private final TokenRepository tokenRepository;
@@ -75,7 +73,7 @@ public class AuthenticationService {
         return new AuthenticationResponse(token, "User login was successful");
     }
 
-    private void revokeAllTokenByUser(User user) {
+    public void revokeAllTokenByUser(User user) {
         List<Token> validTokens = tokenRepository.findAllTokenByUser(user.getId());
         if(validTokens.isEmpty()) {
             return;
@@ -88,7 +86,7 @@ public class AuthenticationService {
 
         tokenRepository.saveAll(validTokens);
     }
-    private void saveUserToken(String tokenValue, User user) {
+    public void saveUserToken(String tokenValue, User user) {
         Token token = new Token();
         token.setToken(tokenValue);
         token.setLoggedOut(false);
@@ -158,6 +156,18 @@ public class AuthenticationService {
             throw new AccessDeniedException("Unauthenticated user");
         }
 
+    }
+
+    @Override
+    public User getLoggedInSUserInfo(Authentication authentication){
+        try{
+            String username = getLoggedInUsername(authentication);
+            return userRepository.findByUsername(username).orElse(new User());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     // check given password and stored password is same or not
