@@ -1,7 +1,6 @@
 package com.santanu.jwtAuth.config;
 
 
-import com.santanu.jwtAuth.entity.Role;
 import com.santanu.jwtAuth.filter.JwtAuthenticationFilter;
 import com.santanu.jwtAuth.service.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -69,10 +68,10 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("*/adminOnly").hasAuthority("ADMIN")
                         .anyRequest().authenticated())
-//                .formLogin(formLogin -> formLogin
-//                        .loginPage(client_url+"/auth") // custom login form for security
+                .formLogin(formLogin -> formLogin
+                        .loginPage(client_url+"/auth") // custom login form for security
 //                        .successHandler(loginSuccessHandler) // Redirect to this url on successful authentication using jwt auth
-//                )
+                )
                 // logout functionality
                 .logout(l->l
                         .logoutUrl("/logout")
