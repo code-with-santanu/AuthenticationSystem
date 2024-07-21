@@ -1,6 +1,7 @@
 package com.santanu.jwtAuth.controller;
 
 import com.santanu.jwtAuth.entity.User;
+import com.santanu.jwtAuth.model.CurrentUserInfo;
 import com.santanu.jwtAuth.model.PasswordResetRequest;
 import com.santanu.jwtAuth.model.RegisterResponse;
 import com.santanu.jwtAuth.service.AuthenticationServiceImpl;
@@ -25,7 +26,7 @@ public class UserAccountController {
 
     // Expose endpoint to fetch current-user info
     @GetMapping("/getUserInfo")
-    public ResponseEntity<User> getUserInfo(Authentication authentication) {
+    public ResponseEntity<CurrentUserInfo> getUserInfo(Authentication authentication) {
         return ResponseEntity.ok(authenticationServiceImpl.getLoggedInSUserInfo(authentication));
     }
 }
