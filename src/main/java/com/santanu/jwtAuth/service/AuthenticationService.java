@@ -21,6 +21,6 @@ public interface AuthenticationService {
 
     String getLoggedInPassword(Authentication authentication) throws AccessDeniedException;
 
-    User getLoggedInSUserInfo(Authentication authentication) ;
+    CurrentUserInfo getLoggedInSUserInfo(Authentication authentication) ;
 
 }

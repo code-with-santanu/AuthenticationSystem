@@ -159,10 +159,18 @@ public class AuthenticationServiceImpl implements AuthenticationService{
     }
 
     @Override
-    public User getLoggedInSUserInfo(Authentication authentication){
+    public CurrentUserInfo getLoggedInSUserInfo(Authentication authentication){
+        CurrentUserInfo userInfo= new CurrentUserInfo();
         try{
             String username = getLoggedInUsername(authentication);
-            return userRepository.findByUsername(username).orElse(new User());
+            User user= userRepository.findByUsername(username).orElse(new User());
+
+            userInfo.setFullName(user.getFirstName() + " " + user.getLastName());
+            userInfo.setUserName(user.getUsername());
+            userInfo.setPassword(user.getPassword());
+            userInfo.setRole(user.getRole().name());
+
+            return userInfo;
         }
         catch (Exception e){
             e.printStackTrace();
